@@ -1,0 +1,44 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Créer un compte</h2>
+      <p>Rejoignez-nous et commencez à commander vos fleurs</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+      <div class="form-group">
+        <label for="name">Nom complet</label>
+        <input id="name" type="text" formControlName="name" placeholder="Entrez votre nom">
+        <div class="error" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+          Nom requis
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="Entrez votre email">
+        <div class="error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+          Email invalide
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" placeholder="Entrez votre mot de passe">
+        <div class="error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+          Mot de passe requis (min 6 caractères)
+        </div>
+      </div>
+
+      <div class="form-extra">
+        <a href="login">Déjà un compte ? Connectez-vous</a>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="signupForm.invalid">S'inscrire</button>
+    </form>
+
+    <div class="login-footer">
+      <p>En créant un compte, vous acceptez nos <a href="#">conditions d'utilisation</a>.</p>
+    </div>
+  </div>
+</div>

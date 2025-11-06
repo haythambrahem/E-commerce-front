@@ -1,0 +1,10 @@
+<h2>Mon Panier</h2>
+<div *ngIf="items.length === 0">Votre panier est vide</div>
+<ul>
+  <li *ngFor="let item of items">
+    {{ item.product.name }} x {{ item.quantity }} = {{ item.subtotal }} €
+    <button (click)="remove(item.product.id!)">Supprimer</button>
+  </li>
+</ul>
+<p *ngIf="items.length > 0">Total: {{ total }} €</p>
+<button *ngIf="items.length > 0" (click)="clear()">Vider le panier</button>

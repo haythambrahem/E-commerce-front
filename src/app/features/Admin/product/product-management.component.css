@@ -1,0 +1,32 @@
+    .product-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  background-color: #ff66b2;
+  color: white;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}

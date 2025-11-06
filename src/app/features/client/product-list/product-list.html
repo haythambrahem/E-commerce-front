@@ -1,0 +1,11 @@
+<h2>Produits</h2>
+<div class="product-grid">
+  <div class="product-card" *ngFor="let product of products">
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p>Prix: {{ product.price }} €</p>
+    <p>Stock: {{ product.stock }}</p>
+    <label>Quantité: <input type="number" [(ngModel)]="quantity[product.id!]" min="1" [max]="product.stock"/></label>
+    <button (click)="addToCart(product)">Ajouter au panier</button>
+  </div>
+</div>

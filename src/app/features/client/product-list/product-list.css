@@ -1,0 +1,16 @@
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  width: 200px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.product-card h3 { margin: 0 0 10px 0; }
+.product-card button { margin-top: 10px; cursor: pointer; }
