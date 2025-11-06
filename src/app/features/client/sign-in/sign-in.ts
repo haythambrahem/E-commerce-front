@@ -35,24 +35,25 @@ export class SignIn implements OnInit {
   }
   
 
-  onSubmit() {
+onSubmit() {
   if (this.signupForm.valid) {
     const newUser: User = {
       userName: this.signupForm.value.name,
       email: this.signupForm.value.email,
-      password: this.signupForm.value.password
+      password: this.signupForm.value.password,
+      roles: [{ name: 'USER' }] // ✅ rôle ajouté automatiquement
     };
 
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
-        console.log('User created successfully:', response);
+        console.log('✅ User created successfully:', response);
         this.toastr.success('Compte créé avec succès 🎉');
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.error('Error creating user:', err);
+        console.error('❌ Error creating user:', err);
         if (err.status === 409 && err.error === 'Email déjà utilisé !') {
-          this.toastr.error('❌ Cet email est déjà utilisé !');
+          this.toastr.error('Cet email est déjà utilisé !');
         } else {
           this.toastr.error('Erreur lors de la création du compte.');
         }
@@ -62,5 +63,6 @@ export class SignIn implements OnInit {
     this.signupForm.markAllAsTouched();
   }
 }
+
 
 }
