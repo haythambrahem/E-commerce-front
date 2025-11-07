@@ -1,0 +1,36 @@
+<div class="admin-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🌸 FlowerByMANEL</h2>
+      <p class="subtitle">Espace Admin</p>
+    </div>
+
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            🏠 Tableau de bord
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/dashboard/products" routerLinkActive="active">
+            🛍️ Produits
+          </a>
+        </li>
+                <li><a routerLink="/admin/dashboard">📦 Commandes</a></li>
+        <li><a routerLink="/admin/dashboard" >👥 Utilisateurs</a></li>
+      </ul>
+    </nav>
+
+    <div class="logout-section">
+      <button (click)="logout()">🚪 Déconnexion</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <!-- The child routes will be displayed here -->
+    <router-outlet></router-outlet>
+  </main>
+</div>

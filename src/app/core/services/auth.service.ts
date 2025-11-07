@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../interface/user';
-
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,20 +10,40 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor() {
+  constructor(private router: Router) {
     // On peut récupérer l'user du localStorage si connecté
     const user = localStorage.getItem('user');
     if (user) this.currentUserSubject.next(JSON.parse(user));
   }
 
-  login(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
-    this.currentUserSubject.next(user);
-  }
+ login(user: User) {
+  if (!user) return;
+
+  // ✅ Sauvegarde dans le localStorage
+  localStorage.setItem('user', JSON.stringify(user));
+  this.currentUserSubject.next(user);
+
+  // ✅ Normaliser le rôle
+  const roleName = user?.role?.toUpperCase() || user?.roles?.[0]?.name?.toUpperCase() || '';
+
+  console.log("Rôle de l'utilisateur connecté :", roleName);
+
+  // ✅ Navigation après un léger délai pour s’assurer que tout est bien enregistré
+  setTimeout(() => {
+    if (roleName === 'ADMIN') {
+      this.router.navigate(['/admin/dashboard']);
+    } else {
+      this.router.navigate(['/home']);
+    }
+  }, 100);
+}
+
 
   logout() {
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
+
   }
 
   getCurrentUser(): User | null {
@@ -32,5 +52,9 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.currentUserSubject.value;
+  }
+   // ✅ Méthode pratique pour récupérer le rôle
+  getRole(): string | null {
+    return this.currentUserSubject.value?.roles?.[0]?.name ?? null;
   }
 }

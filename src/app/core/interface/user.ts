@@ -8,5 +8,6 @@ export interface User {
   email: string;
   password?: string;
   userName?: string;
+  role?: string; 
   roles?: Role[]; // ✅ un utilisateur peut avoir plusieurs rôles
 }

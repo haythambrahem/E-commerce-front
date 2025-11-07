@@ -1,0 +1,149 @@
+/* === Layout global === */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background: #fdfdfd;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #e84393, #d81b60);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.sidebar-header .subtitle {
+  font-size: 0.85rem;
+  color: #f8c3dc;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.logout-section {
+  text-align: center;
+}
+
+.logout-section button {
+  background: white;
+  color: #e84393;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout-section button:hover {
+  background: #f8bbd0;
+}
+
+/* === Main content === */
+.content {
+  flex: 1;
+  padding: 2rem;
+  background: #fff;
+  overflow-y: auto;
+}
+
+/* Header */
+.dashboard-header h1 {
+  font-size: 1.8rem;
+  color: #e84393;
+}
+
+.dashboard-header p {
+  color: #777;
+  margin-top: 0.3rem;
+}
+
+/* === Stat cards === */
+.stats-section {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 200px;
+  background: #ffe4ec;
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(232, 67, 147, 0.2);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h3 {
+  color: #e84393;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Overview section === */
+.overview {
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.overview h2 {
+  color: #e84393;
+  margin-bottom: 1rem;
+}
+
+.placeholder {
+  background: #fff;
+  border: 2px dashed #e84393;
+  border-radius: 15px;
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-style: italic;
+}

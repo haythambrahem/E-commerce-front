@@ -13,13 +13,26 @@
     </small>
   </div>
 
-  <div class="form-group">
-    <label for="password">Mot de passe</label>
-    <input type="password" id="password" formControlName="password" placeholder="Entrez votre mot de passe">
-    <small class="error" *ngIf="password.invalid && password.touched">
-      Mot de passe requis (min 6 caractères)
-    </small>
+ <div class="form-group password-group">
+  <label for="password">Mot de passe</label>
+  <div class="password-wrapper">
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      id="password"
+      formControlName="password"
+      placeholder="Entrez votre mot de passe"
+    />
+    <i
+      class="fa"
+      [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+      (click)="togglePassword()"
+    ></i>
   </div>
+  <small class="error" *ngIf="password.invalid && password.touched">
+    Mot de passe requis (min 6 caractères)
+  </small>
+</div>
+
 
   <div class="error-message" *ngIf="errorMessage">
     {{ errorMessage }}

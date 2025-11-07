@@ -32,6 +32,13 @@ export class Login  implements OnInit {
     });
   }
 
+  showPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
+
   get email() {
     return this.loginForm.get('email')!;
   }

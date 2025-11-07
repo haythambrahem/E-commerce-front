@@ -128,3 +128,27 @@ form {
     padding: 2rem 1.5rem;
   }
 }
+
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 2.5rem; /* espace pour l’icône */
+}
+
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #b0b6b8;
+  transition: color 0.3s ease;
+}
+
+.password-wrapper i:hover {
+  color: #e84393;
+}
