@@ -1,17 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { AddProductDialog } from './add-product-dialog/add-product-dialog';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-product-admin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatDialogModule, AddProductDialog],
   templateUrl: './product-admin.html',
   styleUrls: ['./product-admin.css'],
 })
-export class ProductAdmin {
-  products = [
-    { id: 1, name: 'Rose Rouge', price: 15.5, stock: 25 },
-    { id: 2, name: 'Tulipe Jaune', price: 12, stock: 10 },
-    { id: 3, name: 'Orchidée Blanche', price: 22.3, stock: 8 },
-  ];
+export class ProductAdmin implements OnInit {
+  products: any[] = [];
+
+  constructor(
+    private dialog: MatDialog,
+    private productService: ProductService
+  ) {}
+
+  ngOnInit() {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.productService.getAllProducts().subscribe({
+      next: (data) => this.products = data,
+      error: (err) => console.error('Erreur chargement produits', err)
+    });
+  }
+
+  openAddDialog() {
+    const dialogRef = this.dialog.open(AddProductDialog, {
+      width: '600px',
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe((formData: FormData) => {
+      if (formData) {
+        this.productService.createProductWithImage(formData).subscribe({
+          next: (newProduct: any) => {
+            console.log('Produit enregistré en DB : ', newProduct);
+
+            // Ajouter directement au tableau pour mise à jour instantanée
+            this.products.push(newProduct);
+          },
+          error: (err) => console.error('Erreur lors de la création :', err)
+        });
+      }
+    });
+  }
 }

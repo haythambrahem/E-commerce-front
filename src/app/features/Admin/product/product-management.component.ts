@@ -1,44 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../../../core/services/product.service';
+import { CategoryService } from '../../../core/services/category.service';
 import { Product } from '../../../core/interface/product';
 import { Category } from '../../../core/interface/category';
-import { CategoryService } from '../../../core/services/category.service';
+import { AddProductDialog } from '../../admin-dashboard/product-admin/add-product-dialog/add-product-dialog';
 
 @Component({
   selector: 'app-product',
-  imports: [ CommonModule,          // ✅ nécessaire pour *ngFor
-    ReactiveFormsModule, ], // ✅ nécessaire pour les formulaires réactifs
-  standalone: true,          // ✅ recommandé dans Angular 20
+  standalone: true,
+  imports: [CommonModule, AddProductDialog ],
   templateUrl: './product-management.component.html',
   styleUrls: ['./product-management.component.css']
-
 })
 export class ProductComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
-  productForm!: FormGroup;
-  editingProductId: number | null = null;
 
   constructor(
-    private fb: FormBuilder,
+    private dialog: MatDialog,
     private productService: ProductService,
     private categoryService: CategoryService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: [0, Validators.required],
-      stock: [0, Validators.required],
-      category: [null, Validators.required],
-       imageUrl: ['']
-    });
-
     this.loadProducts();
     this.loadCategories();
   }
@@ -57,36 +45,27 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  submit() {
-    if (this.productForm.invalid) return;
-    const product: Product = this.productForm.value;
+  // 👉 Ajout via dialog
+  openAddDialog() {
+  const dialogRef = this.dialog.open(AddProductDialog, {
+    width: '600px'
+  });
 
-    if (this.editingProductId) {
-      this.productService.updateProduct(this.editingProductId, product).subscribe({
-        next: () => {
-          this.toastr.success('Produit mis à jour');
-          this.productForm.reset();
-          this.editingProductId = null;
-          this.loadProducts();
-        },
-        error: () => this.toastr.error('Erreur lors de la mise à jour')
-      });
-    } else {
-      this.productService.createProduct(product).subscribe({
-        next: () => {
-          this.toastr.success('Produit créé');
-          this.productForm.reset();
-          this.loadProducts();
-        },
-        error: () => this.toastr.error('Erreur lors de la création')
-      });
-    }
-  }
+  dialogRef.afterClosed().subscribe((formData: FormData) => {
+    if (!formData) return;
 
-  editProduct(product: Product) {
-    this.editingProductId = product.id || null;
-    this.productForm.patchValue(product);
-  }
+    this.productService.createProductWithImage(formData).subscribe({
+      next: () => {
+        this.toastr.success("Produit ajouté");
+        this.loadProducts();
+      },
+      error: () => {
+        this.toastr.error("Erreur lors de la création du produit");
+      }
+    });
+  });
+}
+
 
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe({
@@ -97,4 +76,5 @@ export class ProductComponent implements OnInit {
       error: () => this.toastr.error('Erreur lors de la suppression')
     });
   }
+  
 }

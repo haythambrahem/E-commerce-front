@@ -1,6 +1,6 @@
 <div class="product-admin">
   <h2>🛍️ Gestion des Produits</h2>
-  <button class="add-btn">+ Ajouter un produit</button>
+  <button class="add-btn" (click)="openAddDialog()">+ Ajouter un produit</button>
 
   <table class="product-table">
     <thead>
@@ -9,6 +9,8 @@
         <th>Nom</th>
         <th>Prix (DT)</th>
         <th>Stock</th>
+        <th>Catégorie</th>
+        <th>Image</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +19,8 @@
         <td>{{ product.name }}</td>
         <td>{{ product.price }}</td>
         <td>{{ product.stock }}</td>
+        <td>{{ product.category }}</td>
+        <td><img [src]="product.image" alt="{{ product.name }}" width="50"></td>
       </tr>
     </tbody>
   </table>

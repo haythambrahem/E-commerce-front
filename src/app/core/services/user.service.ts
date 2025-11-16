@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8081/api/users'; // URL de ton backend Spring Boot
+  private apiUrl = 'http://localhost:8082/api/users'; // URL de ton backend Spring Boot
 
   constructor(private http: HttpClient, private authService: AuthService) {}
  // 🔹 Créer un utilisateur (inscription)

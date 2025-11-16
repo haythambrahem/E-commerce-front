@@ -41,3 +41,8 @@
   background-color: #fce4ec;
   color: #e84393;
 }
+.custom-dialog-container .mat-mdc-dialog-surface {
+  border-radius: 10px !important;
+  padding: 0 !important;
+  overflow: hidden;
+}

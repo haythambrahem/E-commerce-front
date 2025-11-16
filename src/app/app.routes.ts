@@ -7,7 +7,7 @@ import { Contact } from './features/client/contact/contact';
 import { BestSellers } from './features/client/best-sellers/best-sellers';
 import { SignIn } from './features/client/sign-in/sign-in';
 import { ForgotPassword } from './features/client/forgot-password/forgot-password';
-// import { ProductComponent } from './features/Admin/product/product-management.component';
+//import { ProductComponent } from './features/Admin/product/product-management.component';
 import { ProductAdmin } from './features/admin-dashboard/product-admin/product-admin';
 import { Login } from './features/client/login/login';
 import { CartComponent } from './features/client/cart-component/cart-component';

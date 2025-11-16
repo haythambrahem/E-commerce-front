@@ -1,51 +1,42 @@
 <h2>Gestion des produits</h2>
 
-<form [formGroup]="productForm" (ngSubmit)="submit()" class="product-form">
-  <div class="form-group">
-    <label for="name">Nom du produit</label>
-    <input id="name" formControlName="name" placeholder="Ex: Bouquet Roses Rouges" />
-  </div>
-
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input id="description" formControlName="description" placeholder="Description du produit" />
-  </div>
-
-  <div class="form-group">
-    <label for="price">Prix</label>
-    <input type="number" id="price" formControlName="price" placeholder="Ex: 50" />
-  </div>
-
-  <div class="form-group">
-    <label for="stock">Stock</label>
-    <input type="number" id="stock" formControlName="stock" placeholder="Ex: 10" />
-  </div>
-
-  <div class="form-group">
-    <label for="category">Catégorie</label>
-    <input id="category" formControlName="category" placeholder="Ex: Fleurs" />
-  </div>
-
-  <!-- 🖼️ Nouveau champ image -->
-  <div class="form-group">
-    <label for="imageUrl">Image URL</label>
-    <input type="text" id="imageUrl" formControlName="imageUrl" placeholder="Ex: https://exemple.com/rose.jpg" />
-  </div>
-
-  <button type="submit" class="btn">
-    {{ editingProductId ? 'Mettre à jour' : 'Créer' }}
+<!-- Bouton d'ajout -->
+<div style="text-align: right; margin-bottom: 15px;">
+  <button (click)="openAddDialog()" class="btn-add">
+    + Ajouter un produit
   </button>
-</form>
+</div>
 
 <hr />
 
 <h3>Liste des produits</h3>
 
+<div *ngIf="products.length === 0">
+  Aucun produit disponible.
+</div>
+
 <ul class="product-list">
   <li *ngFor="let product of products" class="product-item">
-    <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" width="50" height="50" />
-    <span>{{ product.name }} - {{ product.category }} - {{ product.price }}DT</span>
-    <button (click)="editProduct(product)">Modifier</button>
-    <button (click)="deleteProduct(product.id!)">Supprimer</button>
+
+    <!-- Image -->
+    <img 
+      *ngIf="product.imageUrl" 
+      [src]="product.imageUrl" 
+      alt="{{ product.name }}" 
+      width="70" 
+      height="70"
+      style="border-radius: 5px; object-fit: cover;"
+    />
+
+    <div class="info">
+      <h4>{{ product.name }}</h4>
+      <p>Catégorie : {{ product.category || 'Non définie' }}</p>
+      <p>Prix : {{ product.price }} DT</p>
+      <p>Stock : {{ product.stock }}</p>
+    </div>
+
+    <div class="actions">
+      <button (click)="deleteProduct(product.id!)" class="btn-delete">Supprimer</button>
+    </div>
   </li>
 </ul>

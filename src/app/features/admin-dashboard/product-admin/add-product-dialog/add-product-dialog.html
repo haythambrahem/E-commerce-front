@@ -1,0 +1,60 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">Ajouter un produit</h2>
+
+  <div class="dialog-content">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom du produit</mat-label>
+          <input matInput formControlName="name" placeholder="Ex : Rose rouge" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prix (DT)</mat-label>
+          <input matInput type="number" formControlName="price" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Stock</mat-label>
+          <input matInput type="number" formControlName="stock" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Catégorie</mat-label>
+          <mat-select formControlName="category">
+            <mat-option value="PRINTEMPS">Printemps</mat-option>
+            <mat-option value="ETE">ETE</mat-option>
+            <mat-option value="AUTOMNE">Automne</mat-option>
+            <mat-option value="HIVER">Hiver</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+      <div class="upload-box">
+        <label for="imageUpload" class="upload-label">
+          <mat-icon>cloud_upload</mat-icon>
+          <span *ngIf="!selectedFile">Choisir une image...</span>
+          <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+        </label>
+        <input id="imageUpload" type="file" (change)="onFileSelected($event)" hidden />
+      </div>
+
+      <div class="preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="Preview" class="preview-img" />
+      </div>
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button mat-stroked-button type="button" (click)="onCancel()">Annuler</button>
+   <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!productForm.valid">
+  <mat-icon>add_circle</mat-icon> Ajouter
+</button>
+
+  </div>
+</div>
