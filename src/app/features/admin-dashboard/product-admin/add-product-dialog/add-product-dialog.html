@@ -6,22 +6,22 @@
       <div class="form-grid">
         <mat-form-field appearance="outline">
           <mat-label>Nom du produit</mat-label>
-          <input matInput formControlName="name" placeholder="Ex : Rose rouge" />
+          <input id="product-name" matInput formControlName="name" placeholder="Ex : Rose rouge" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Prix (DT)</mat-label>
-          <input matInput type="number" formControlName="price" />
+          <input id="product-price" matInput type="number" formControlName="price" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Stock</mat-label>
-          <input matInput type="number" formControlName="stock" />
+          <input id="product-stock" matInput type="number" formControlName="stock" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Catégorie</mat-label>
-          <mat-select formControlName="category">
+          <mat-select id="product-category" formControlName="category">
             <mat-option value="PRINTEMPS">Printemps</mat-option>
             <mat-option value="ETE">ETE</mat-option>
             <mat-option value="AUTOMNE">Automne</mat-option>
@@ -32,16 +32,16 @@
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" rows="3"></textarea>
+        <textarea id="product-description" matInput formControlName="description" rows="3"></textarea>
       </mat-form-field>
 
       <div class="upload-box">
-        <label for="imageUpload" class="upload-label">
+        <label for="product-image" class="upload-label">
           <mat-icon>cloud_upload</mat-icon>
           <span *ngIf="!selectedFile">Choisir une image...</span>
           <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
         </label>
-        <input id="imageUpload" type="file" (change)="onFileSelected($event)" hidden />
+        <input id="product-image" type="file" (change)="onFileSelected($event)" hidden />
       </div>
 
       <div class="preview" *ngIf="previewUrl">
@@ -51,10 +51,9 @@
   </div>
 
   <div class="dialog-actions">
-    <button mat-stroked-button type="button" (click)="onCancel()">Annuler</button>
-   <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!productForm.valid">
-  <mat-icon>add_circle</mat-icon> Ajouter
-</button>
-
+    <button id="btn-cancel-product" mat-stroked-button type="button" (click)="onCancel()">Annuler</button>
+    <button id="btn-submit-product" mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!productForm.valid">
+      <mat-icon>add_circle</mat-icon> Ajouter
+    </button>
   </div>
 </div>
