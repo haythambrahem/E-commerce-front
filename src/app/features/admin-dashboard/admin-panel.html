@@ -7,21 +7,30 @@
     </div>
 
     <nav>
-      <ul>
-        <li>
-          <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            🏠 Tableau de bord
-          </a>
-        </li>
-        <li>
-          <a routerLink="/admin/dashboard/products" routerLinkActive="active">
-            🛍️ Produits
-          </a>
-        </li>
-                <li><a routerLink="/admin/dashboard">📦 Commandes</a></li>
-        <li><a routerLink="/admin/dashboard" >👥 Utilisateurs</a></li>
-      </ul>
-    </nav>
+  <ul>
+    <li>
+      <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        🏠 Tableau de bord
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/dashboard/products" routerLinkActive="active">
+        🛍️ Produits
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/dashboard/commands" routerLinkActive="active">
+        📦 Commandes
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/dashboard/users" routerLinkActive="active">
+        👥 Utilisateurs
+      </a>
+    </li>
+  </ul>
+</nav>
+
 
     <div class="logout-section">
       <button (click)="logout()">🚪 Déconnexion</button>
@@ -30,7 +39,7 @@
 
   <!-- Main Content -->
   <main class="content">
-    <!-- The child routes will be displayed here -->
+    <!-- Les routes enfants s'affichent ici -->
     <router-outlet></router-outlet>
   </main>
 </div>

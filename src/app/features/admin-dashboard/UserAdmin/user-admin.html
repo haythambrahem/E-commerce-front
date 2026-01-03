@@ -1,0 +1,33 @@
+<div class="user-admin">
+  <h2>👥 Gestion des Utilisateurs</h2>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.active ? 'Actif' : 'Inactif' }}</td>
+        <td>
+          <button 
+            mat-flat-button
+            [color]="user.active ? 'warn' : 'primary'"
+            (click)="toggleActive(user.id, user.active)">
+            {{ user.active ? 'Désactiver' : 'Activer' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

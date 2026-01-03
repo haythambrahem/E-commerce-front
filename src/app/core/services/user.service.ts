@@ -36,18 +36,19 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // // 🔹 Authentification (exemple simple sans JWT)
-  // login(email: string, password: string): Observable<User | null> {
-  //   return new Observable((observer) => {
-  //     this.getAllUsers().subscribe((users) => {
-  //       const user = users.find(
-  //         (u) => u.email === email && u.password === password
-  //       );
-  //       observer.next(user || null);
-  //       observer.complete();
-  //     });
-  //   });
-  // }
+  // 🔹 Authentification (exemple simple sans JWT)
+  /* login(email: string, password: string): Observable<User | null> {
+    return new Observable((observer) => {
+       this.getAllUsers().subscribe((users) => {
+         const user = users.find(
+          (u) => u.email === email && u.password === password
+         );
+        observer.next(user || null);
+         observer.complete();
+      });
+     });
+   }
+  */
    // 🔹 Authentification (avec backend)
 login(email: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/login`, { email, password }).pipe(
@@ -70,6 +71,10 @@ login(email: string, password: string): Observable<User> {
 
 
 
+// 🔹 Activer / Désactiver un utilisateur
+updateUserStatus(id: number, active: boolean): Observable<User> {
+  return this.http.patch<User>(`${this.apiUrl}/${id}/status`, { active });
+}
 
 
 

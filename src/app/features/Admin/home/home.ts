@@ -24,6 +24,7 @@ export class Home implements OnInit {
 
   cartItems: CartItem[] = [];
   products: Product[] = [];
+  cartCount = 0;
 
   constructor(
     public authService: AuthService,
@@ -57,10 +58,12 @@ export class Home implements OnInit {
     this.cartOpen = !this.cartOpen;
   }
 
-  addToCart(product: Product) {
-    const item = this.cartItems.find((i) => i.id === product.id);
+   addToCart(product: Product) {
+    const item = this.cartItems.find(i => i.id === product.id);
     if (item) item.quantity++;
     else this.cartItems.push({ ...product, quantity: 1 });
+
+    this.cartCount = this.cartItems.reduce((sum, i) => sum + i.quantity, 0);
   }
 
   removeItem(item: CartItem) {

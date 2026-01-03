@@ -1,47 +1,44 @@
 <header>
-  <a (click)="scrollToSection('home')" class="logo">FlowerByMANEL<span>.</span></a>
+  <a routerLink="/home" class="logo">FlowerByMANEL<span>.</span></a>
 
   <nav class="navbar" [class.active]="menuOpen">
-    <a (click)="scrollToSection('home')" [class.active]="activeSection === 'home'">Accueil</a>
-    <a (click)="scrollToSection('about')" [class.active]="activeSection === 'about'">À propos</a>
-    <a (click)="scrollToSection('products')" [class.active]="activeSection === 'products'"
-      >Produits</a
-    >
-    <a (click)="scrollToSection('contact')" [class.active]="activeSection === 'contact'">Contact</a>
+    <a routerLink="/home" [class.active]="activeSection === 'home'">Accueil</a>
+    <a routerLink="/about">À propos</a>
+    <a routerLink="/products">Produits</a>
+    <a routerLink="/contact">Contact</a>
   </nav>
 
   <div class="icons">
     <a routerLink="/wishlist"><i class="fas fa-heart"></i></a>
-    <a (click)="toggleCart()">
-      <i class="fas fa-shopping-cart"></i> <span class="cart-count">{{ cartItems.length }}</span>
+
+    <!-- 🛒 Panier -->
+    <a routerLink="/cart">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count">{{ cartCount }}</span>
     </a>
 
-    <!-- ✅ Dropdown utilisateur -->
-    <!-- ✅ Dropdown utilisateur réactif -->
-<ng-container *ngIf="authService.currentUser$ | async as user; else loginLink">
-  <div
-    class="user-dropdown"
-    (mouseenter)="showDropdown = true"
-    (mouseleave)="showDropdown = false"
-  >
-    <div class="user-info">
-      <i class="fas fa-user-circle"></i>
-      <span>{{ user.userName }}</span>
-      <i class="fas fa-chevron-down dropdown-icon"></i>
-    </div>
+    <!-- 👤 Utilisateur -->
+    <ng-container *ngIf="authService.currentUser$ | async as user; else loginLink">
+      <div
+        class="user-dropdown"
+        (mouseenter)="showDropdown = true"
+        (mouseleave)="showDropdown = false"
+      >
+        <div class="user-info">
+          <i class="fas fa-user-circle"></i>
+          <span>{{ user.userName }}</span>
+          <i class="fas fa-chevron-down dropdown-icon"></i>
+        </div>
 
-    <ul class="dropdown-menu" *ngIf="showDropdown">
-      <li (click)="authService.logout()">Déconnexion</li>
-    </ul>
-  </div>
-</ng-container>
+        <ul class="dropdown-menu" *ngIf="showDropdown">
+          <li (click)="authService.logout()">Déconnexion</li>
+        </ul>
+      </div>
+    </ng-container>
 
-<!-- Lien login si non connecté -->
-<ng-template #loginLink>
-  <a routerLink="/login"><i class="fas fa-user"></i></a>
-</ng-template>
-
-
+    <ng-template #loginLink>
+      <a routerLink="/login"><i class="fas fa-user"></i></a>
+    </ng-template>
   </div>
 
   <div class="menu-toggle" (click)="toggleMenu()">
@@ -50,6 +47,7 @@
     <span></span>
   </div>
 </header>
+
 
 <!-- 🌸 SECTION ACCUEIL -->
 <section class="hero" id="home">
@@ -61,11 +59,15 @@
       Fraîcheur garantie et livraison express.
     </p>
     <div class="hero-buttons">
-      <button class="btn" (click)="scrollToSection('products')">
-        <i class="fas fa-shopping-bag"></i> Voir la boutique
-      </button>
-      <button class="btn btn-secondary" (click)="scrollToSection('about')">En savoir plus</button>
-    </div>
+  <button class="btn" routerLink="/products">
+    <i class="fas fa-shopping-bag"></i> Voir la boutique
+  </button>
+
+  <button class="btn btn-secondary" routerLink="/about">
+    En savoir plus
+  </button>
+</div>
+
   </div>
   <div class="hero-image">
     <img
@@ -114,7 +116,7 @@
     <div class="product-card">
       <div class="product-image">
         <img
-          src="https://cdn.pixabay.com/photo/2016/11/18/15/07/rose-1837610_1280.jpg"
+          src="https://bergamotte.imgix.net/e9pp3g4yrwpb1fm1m5cbarreb4b4?ixlib=rails-4.3.1&auto=format%2Ccompress&fit=crop&q=65&ar=1%3A1"
           alt="Rose Rouge Élégante"
         />
       </div>
@@ -123,7 +125,7 @@
         <p>Symbole d’amour et de passion, parfaite pour offrir à une personne spéciale ❤️</p>
         <div class="product-footer">
           <span class="price">25 DT</span>
-          <button class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
+          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
         </div>
       </div>
     </div>
@@ -131,7 +133,7 @@
     <div class="product-card">
       <div class="product-image">
         <img
-          src="https://cdn.pixabay.com/photo/2016/03/27/19/44/tulips-1283883_1280.jpg"
+          src="https://media.s-bol.com/xxgzqZPvAMoP/kRrWAwK/550x595.jpg"
           alt="Tulipes Printanières"
         />
       </div>
@@ -140,7 +142,7 @@
         <p>Un bouquet lumineux pour égayer vos journées et vos espaces 🌷</p>
         <div class="product-footer">
           <span class="price">30 DT</span>
-          <button class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
+          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
         </div>
       </div>
     </div>
@@ -148,7 +150,7 @@
     <div class="product-card">
       <div class="product-image">
         <img
-          src="https://cdn.pixabay.com/photo/2018/08/10/18/56/sunflowers-3591503_1280.jpg"
+          src="https://thumbs.dreamstime.com/b/des-tournesols-dor%C3%A9s-au-coucher-du-soleil-r%C3%A9fl%C3%A9chissent-sur-un-littoral-oc%C3%A9anique-serein-390506847.jpg"
           alt="Tournesols Dorés"
         />
       </div>
@@ -157,7 +159,7 @@
         <p>Apportez chaleur et bonheur dans votre maison avec nos tournesols ☀️</p>
         <div class="product-footer">
           <span class="price">22 DT</span>
-          <button class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
+          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
         </div>
       </div>
     </div>
@@ -165,7 +167,7 @@
     <div class="product-card">
       <div class="product-image">
         <img
-          src="https://cdn.pixabay.com/photo/2017/03/02/20/36/lilac-2118850_1280.jpg"
+          src="https://www.promessedefleurs.com/media/catalog/category/Lilas_parfum_s.jpg"
           alt="Lilas Parfumé"
         />
       </div>
@@ -174,7 +176,7 @@
         <p>Un parfum envoûtant et une couleur douce pour vos plus beaux moments 💜</p>
         <div class="product-footer">
           <span class="price">28 DT</span>
-          <button class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
+          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
         </div>
       </div>
     </div>

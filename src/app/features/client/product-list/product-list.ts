@@ -9,15 +9,14 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
-  imports: [
-    CommonModule,FormsModule  
-  ],
   templateUrl: './product-list.html',
-  styleUrl: './product-list.css',
+  imports: [CommonModule, FormsModule],
+  styleUrls: ['./product-list.css']
 })
 export class ProductList implements OnInit {
   products: Product[] = [];
   quantity: { [key: number]: number } = {};
+  backendUrl = 'http://localhost:8082';
 
   constructor(
     private productService: ProductService,
@@ -29,16 +28,31 @@ export class ProductList implements OnInit {
     this.loadProducts();
   }
 
-  loadProducts(): void {
-    this.productService.getAllProducts().subscribe({
-      next: (data) => this.products = data,
-      error: () => this.toastr.error('Erreur chargement produits')
-    });
-  }
+ loadProducts(): void {
+  this.productService.getAllProducts().subscribe({
+    next: data => {
+      console.log('DATA FROM BACKEND 👉', data);
 
-  addToCart(product: Product): void {
+      this.products = data.map(p => ({
+        ...p,
+        imageUrl: this.backendUrl + p.imageUrl
+      }));
+
+      console.log('PRODUCTS ARRAY 👉', this.products);
+    },
+    error: err => console.error('ERROR 👉', err)
+  });
+}
+
+  addToCart(product: Product) {
     const qty = this.quantity[product.id!] || 1;
-    const item: OrderItem = { product, quantity: qty, subtotal: product.price * qty };
+
+    const item: OrderItem = {
+      product: { ...product },
+      quantity: qty,
+      subtotal: product.price * qty
+    };
+
     this.cartService.addToCart(item);
     this.toastr.success(`${product.name} ajouté au panier`);
   }

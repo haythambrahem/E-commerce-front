@@ -4,25 +4,35 @@
 </header>
 
 <section class="stats-section">
-  <div class="stat-card">
+  <!-- Produits -->
+  <div class="stat-card clickable" (click)="goToProducts()">
+    <mat-icon>inventory</mat-icon>
     <h3>Produits</h3>
-    <p>128</p>
+    <p>{{ stats.products }}</p>
   </div>
-  <div class="stat-card">
+
+  <!-- Commandes -->
+  <div class="stat-card clickable" (click)="goToOrders()">
+    <mat-icon>shopping_cart</mat-icon>
     <h3>Commandes</h3>
-    <p>56</p>
+    <p>{{ stats.orders }}</p>
   </div>
-  <div class="stat-card">
+
+  <!-- Utilisateurs -->
+  <div class="stat-card clickable" (click)="goToUsers()">
+    <mat-icon>people</mat-icon>
     <h3>Utilisateurs</h3>
-    <p>23</p>
+    <p>{{ stats.users }}</p>
   </div>
-  
 </section>
 
 <section class="overview">
   <h2>📊 Aperçu général</h2>
-  <p>Visualisez ici les dernières activités de votre boutique.</p>
-  <div class="placeholder">
-    <p>📈 Graphique des ventes à venir...</p>
+
+  <!-- Graphique Chart.js -->
+  <div class="chart-container">
+    <canvas id="salesChart"></canvas>
   </div>
+
+  <p>Visualisez ici les dernières activités de votre boutique.</p>
 </section>

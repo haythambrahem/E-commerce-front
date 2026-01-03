@@ -1,0 +1,45 @@
+.user-admin {
+  padding: 2rem;
+}
+
+.user-admin h2 {
+  color: #e84393;
+  margin-bottom: 1rem;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff0f6;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(232, 67, 147, 0.2);
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f8c3dc;
+}
+
+.user-table th {
+  background: #e84393;
+  color: white;
+}
+
+.user-table tbody tr:hover {
+  background: #ffe4ec;
+}
+
+.user-table button {
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.user-table button:hover {
+  opacity: 0.9;
+}

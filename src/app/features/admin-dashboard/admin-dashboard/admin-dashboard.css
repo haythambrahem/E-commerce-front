@@ -1,26 +1,121 @@
+/* ===== Header ===== */
 .dashboard-header {
   margin-bottom: 2rem;
+  padding: 1rem 0;
+  text-align: center;
 }
 
+.dashboard-header h1 {
+  color: #e84393;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* ===== Statistiques ===== */
 .stats-section {
   display: flex;
   gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
 .stat-card {
-  background: #fce4ec;
-  border-radius: 12px;
-  flex: 1;
+  background: #fff0f6;
+  padding: 1.5rem;
+  border-radius: 16px;
   text-align: center;
-  padding: 1rem;
-  color: #e84393;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(232, 67, 147, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: default;
 }
 
+.stat-card h3 {
+  margin: 0.5rem 0;
+  color: #e84393;
+}
+
+.stat-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Cartes cliquables */
+.stat-card.clickable {
+  cursor: pointer;
+}
+
+.stat-card.clickable:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(232, 67, 147, 0.35);
+}
+
+/* Icônes Material */
+.stat-card mat-icon {
+  font-size: 36px;
+  color: #e84393;
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+
+/* ===== Overview / Graphique ===== */
 .overview {
   background: #fff;
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+}
+
+.overview h2 {
+  color: #e84393;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 900px;
+  height: 350px;
+  margin: 0 auto 1rem auto;
+  position: relative;
+}
+
+canvas#salesChart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Placeholder pour le texte sous le graphique */
+.overview .placeholder {
+  text-align: center;
+  color: #777;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .stats-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 80%;
+  }
+
+  .overview {
+    width: 90%;
+    padding: 1rem;
+  }
 }

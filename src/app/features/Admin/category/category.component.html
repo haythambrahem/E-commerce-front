@@ -1,0 +1,20 @@
+<div class="category-container">
+  <h2>Gestion des Catégories</h2>
+
+  <div class="form-add">
+    <input type="text" placeholder="Nom de la catégorie" [(ngModel)]="newCategoryName">
+    <input type="text" placeholder="Description" [(ngModel)]="newCategoryDescription">
+    <button (click)="addCategory()">Ajouter</button>
+  </div>
+
+  <div *ngIf="categories.length === 0" class="empty">
+    Aucune catégorie trouvée.
+  </div>
+
+  <ul class="category-list">
+    <li *ngFor="let category of categories" class="category-item">
+      <span>{{ category.name }} - {{ category.description }}</span>
+      <button class="delete-btn" (click)="deleteCategory(category.id!)">Supprimer</button>
+    </li>
+  </ul>
+</div>

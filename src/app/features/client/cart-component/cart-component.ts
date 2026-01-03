@@ -1,36 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CartService } from '../../../core/services/cart.service';
 import { OrderItem } from '../../../core/interface/order-item';
-import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './cart-component.html',
+  imports: [CommonModule, FormsModule],
   styleUrls: ['./cart-component.css']
 })
-export class CartComponent implements OnInit {
-  items: OrderItem[] = [];
+export class CartComponent implements OnInit, OnDestroy {
+  cartItems: OrderItem[] = [];
   total = 0;
+  private cartSub!: Subscription;
 
-  constructor(private cartService: CartService, private toastr: ToastrService) {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartService.getCart().subscribe(items => {
-      this.items = items;
-      this.total = items.reduce((sum, i) => sum + i.subtotal, 0);
+    this.cartSub = this.cartService.getCart().subscribe(items => {
+      console.log('CartComponent Items:', items);
+      this.cartItems = items;
+      this.total = this.cartService.getTotal();
     });
   }
 
-  remove(productId: number): void {
+  removeItem(productId: number) {
     this.cartService.removeFromCart(productId);
-    this.toastr.info('Produit supprimé du panier');
   }
 
-  clear(): void {
+  clearCart() {
     this.cartService.clearCart();
-    this.toastr.info('Panier vidé');
+  }
+
+  ngOnDestroy(): void {
+    this.cartSub.unsubscribe();
   }
 }

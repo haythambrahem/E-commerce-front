@@ -1,0 +1,53 @@
+.command-admin {
+  padding: 2rem;
+}
+
+.command-admin h2 {
+  color: #e84393;
+  margin-bottom: 1rem;
+}
+
+.command-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff0f6;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(232, 67, 147, 0.2);
+}
+
+.command-table th,
+.command-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f8c3dc;
+}
+
+.command-table th {
+  background: #e84393;
+  color: white;
+}
+
+.command-table tbody tr:hover {
+  background: #ffe4ec;
+}
+
+.command-table ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.command-table button {
+  background: #e84393;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.command-table button:hover {
+  background: #d81b60;
+}

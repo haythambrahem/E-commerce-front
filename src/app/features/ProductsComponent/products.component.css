@@ -1,46 +1,43 @@
-/* 🌼 SECTION PRODUITS */
-.products-page {
-  padding: 80px 8%;
+.products-preview {
+  padding: 60px 8%;
   background: #fffafc;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .section-header h2 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   color: #2f2f2f;
 }
 
 .section-header p {
   color: #777;
-  font-size: 1rem;
+  margin-top: 8px;
 }
 
-/* 🌸 GRILLE */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 35px;
+  gap: 30px;
 }
 
 /* 🌷 CARD */
 .product-card {
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
 }
 
-/* 🖼️ IMAGE */
 .product-image {
   height: 220px;
   overflow: hidden;
@@ -54,17 +51,18 @@
 }
 
 .product-card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
-/* ℹ️ INFO */
 .product-info {
-  padding: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .product-info h3 {
   font-size: 1.2rem;
-  margin-bottom: 8px;
   color: #2f2f2f;
 }
 
@@ -74,9 +72,8 @@
   line-height: 1.4;
 }
 
-/* 💰 FOOTER */
 .product-footer {
-  margin-top: 15px;
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,33 +85,21 @@
   color: #e63946;
 }
 
-/* 🛒 BOUTON */
 .add-to-cart {
   background: linear-gradient(135deg, #ff758f, #ff4d6d);
   border: none;
-  padding: 9px 14px;
-  border-radius: 25px;
+  padding: 10px 14px;
+  border-radius: 30px;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .add-to-cart:hover {
   background: linear-gradient(135deg, #ff4d6d, #e63946);
   transform: scale(1.05);
-}
-
-/* 📱 RESPONSIVE */
-@media (max-width: 768px) {
-  .products-page {
-    padding: 50px 5%;
-  }
-
-  .section-header h2 {
-    font-size: 2rem;
-  }
 }
