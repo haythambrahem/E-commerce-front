@@ -6,7 +6,7 @@
   <!-- Panier vide -->
   <div *ngIf="cartItems.length === 0" class="empty-cart">
     <p>Votre panier est vide 🌸</p>
-    <a routerLink="/products" class="btn">Retour à la boutique</a>
+<a routerLink="/products" class="btn">Retour à la boutique</a>
   </div>
 
   <!-- Panier avec produits -->
@@ -36,7 +36,7 @@
 
       <div class="cart-actions">
         <button class="btn clear" (click)="clearCart()">Vider le panier</button>
-        <button class="btn checkout">Finaliser la commande</button>
+<button class="btn checkout" (click)="finalizeOrder()">Finaliser la commande</button>
       </div>
     </div>
 

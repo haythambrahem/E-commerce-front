@@ -1,40 +1,25 @@
 <div class="command-admin">
   <h2>📦 Gestion des Commandes</h2>
 
-  <table class="command-table">
+  <table class="command-table" *ngIf="commands.length > 0">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Client</th>
-        <th>Produits</th>
-        <th>Total (DT)</th>
-        <th>Date</th>
+        <th>Total</th>
         <th>Statut</th>
-        <th>Actions</th>
       </tr>
     </thead>
+
     <tbody>
       <tr *ngFor="let command of commands">
         <td>{{ command.id }}</td>
-        <td>{{ command.userName }}</td>
-        <td>
-          <ul>
-            <li *ngFor="let p of command.products">{{ p.name }} x{{ p.quantity }}</li>
-          </ul>
-        </td>
-        <td>{{ command.total }}</td>
-        <td>{{ command.date | date:'short' }}</td>
+        <td>{{ command.total }} DT</td>
         <td>{{ command.status }}</td>
-        <td>
-          <button 
-            mat-flat-button 
-            color="primary" 
-            *ngIf="command.status !== 'EXPÉDIÉE'" 
-            (click)="markAsShipped(command.id)">
-            🚚 Expédier
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>
+
+  <p *ngIf="commands.length === 0">
+    Aucune commande trouvée.
+  </p>
 </div>

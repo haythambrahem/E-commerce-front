@@ -13,6 +13,8 @@ import { ProductService } from '../../../core/services/product.service';
 })
 export class ProductAdmin implements OnInit {
   products: any[] = [];
+  backendUrl = 'http://localhost:8082';
+
 
   constructor(
     private dialog: MatDialog,
@@ -23,10 +25,15 @@ export class ProductAdmin implements OnInit {
     this.loadProducts();
   }
 
-  loadProducts() {
+  loadProducts(): void {
     this.productService.getAllProducts().subscribe({
-      next: (data) => this.products = data,
-      error: (err) => console.error('Erreur chargement produits', err)
+      next: data => {
+        this.products = data.map(p => ({
+          ...p,
+          imageUrl: this.backendUrl + p.imageUrl
+        }));
+      },
+      error: err => console.error(err)
     });
   }
 

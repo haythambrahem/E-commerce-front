@@ -20,7 +20,8 @@
         <td>{{ product.price }}</td>
         <td>{{ product.stock }}</td>
         <td>{{ product.category }}</td>
-        <td><img [src]="product.image" alt="{{ product.name }}" width="50"></td>
+        <td><img [src]="product.imageUrl" [alt]="product.name" />
+</td>
       </tr>
     </tbody>
   </table>

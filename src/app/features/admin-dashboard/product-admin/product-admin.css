@@ -46,3 +46,17 @@
   padding: 0 !important;
   overflow: hidden;
 }
+.product-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-table img:hover {
+  transform: scale(3);
+  z-index: 10;
+}
+

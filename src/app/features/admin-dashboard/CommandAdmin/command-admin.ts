@@ -3,30 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommandService } from '../../../core/services/CommandService';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-command-admin',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="command-admin">
-      <h2>📦 Gestion des Commandes</h2>
-      <p>Liste des commandes à venir...</p>
-    </div>
-  `,
-  styles: [`
-    .command-admin {
-      padding: 2rem;
-    }
-  `]
+  templateUrl: './command-admin.html',
+  styleUrls: ['./command-admin.css']
 })
 export class CommandAdmin implements OnInit {
   commands: any[] = [];
 
-  constructor(
-    private commandService: CommandService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private commandService: CommandService) {}
 
   ngOnInit() {
     this.loadCommands();
@@ -34,18 +23,12 @@ export class CommandAdmin implements OnInit {
 
   loadCommands() {
     this.commandService.getAllCommands().subscribe({
-      next: (data) => this.commands = data,
-      error: (err) => console.error('Erreur chargement commandes', err)
-    });
-  }
-
-  markAsShipped(commandId: number) {
-    this.commandService.updateCommandStatus(commandId, 'EXPÉDIÉE').subscribe({
-      next: () => {
-        const cmd = this.commands.find(c => c.id === commandId);
-        if (cmd) cmd.status = 'EXPÉDIÉE';
+      next: (data) => {
+        console.log('COMMANDES 👉', data);
+        this.commands = data;
       },
-      error: (err) => console.error('Erreur mise à jour statut', err)
+      error: (err) => console.error(err)
     });
   }
 }
+

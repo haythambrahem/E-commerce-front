@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommandService {
-  private apiUrl = 'http://localhost:8082/api/commands'; // ton endpoint Spring Boot
+  private apiUrl = 'http://localhost:8082/api/orders'; // ton endpoint Spring Boot
 
   constructor(private http: HttpClient) {}
 

@@ -6,11 +6,13 @@ import { ToastrService } from 'ngx-toastr';
 import { OrderItem } from '../../../core/interface/order-item';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // ✅ importer Router
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './product-list.html',
+  standalone: true,
   imports: [CommonModule, FormsModule],
+  templateUrl: './product-list.html',
   styleUrls: ['./product-list.css']
 })
 export class ProductList implements OnInit {
@@ -21,31 +23,30 @@ export class ProductList implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
- loadProducts(): void {
-  this.productService.getAllProducts().subscribe({
-    next: data => {
-      console.log('DATA FROM BACKEND 👉', data);
-
-      this.products = data.map(p => ({
-        ...p,
-        imageUrl: this.backendUrl + p.imageUrl
-      }));
-
-      console.log('PRODUCTS ARRAY 👉', this.products);
-    },
-    error: err => console.error('ERROR 👉', err)
-  });
-}
+  loadProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: data => {
+        this.products = data.map(p => ({
+          ...p,
+          imageUrl: this.backendUrl + p.imageUrl
+        }));
+      },
+      error: err => console.error(err)
+    });
+  }
 
   addToCart(product: Product) {
-    const qty = this.quantity[product.id!] || 1;
+    if (!product.id) return;
+
+    const qty = this.quantity[product.id] || 1;
 
     const item: OrderItem = {
       product: { ...product },
@@ -55,5 +56,8 @@ export class ProductList implements OnInit {
 
     this.cartService.addToCart(item);
     this.toastr.success(`${product.name} ajouté au panier`);
+
+    // 🔹 Redirection automatique vers le panier
+    this.router.navigate(['/cart']);
   }
 }
