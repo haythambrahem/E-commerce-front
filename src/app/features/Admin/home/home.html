@@ -2,10 +2,10 @@
   <a routerLink="/home" class="logo">FlowerByMANEL<span>.</span></a>
 
   <nav class="navbar" [class.active]="menuOpen">
-    <a routerLink="/home" [class.active]="activeSection === 'home'">Accueil</a>
-    <a routerLink="/about">À propos</a>
+    <a (click)="scrollToSection('home')">Accueil</a>
+    <a (click)="scrollToSection('about')">À propos</a>
     <a routerLink="/products">Produits</a>
-    <a routerLink="/contact">Contact</a>
+    <a (click)="scrollToSection('contact')">Contact</a>  
   </nav>
 
   <div class="icons">
@@ -107,81 +107,41 @@
 </section>
 
 <!-- 🌼 SECTION PRODUITS -->
+<!-- 🌼 SECTION PRODUITS - BEST-SELLERS DYNAMIQUE -->
 <section class="products-preview" id="products">
   <div class="section-header">
     <h2>Nos Best-Sellers</h2>
     <p>Les bouquets préférés de nos clients</p>
   </div>
+
   <div class="products-grid">
-    <div class="product-card">
+    <div class="product-card" *ngFor="let product of products">
       <div class="product-image">
-        <img
-          src="https://bergamotte.imgix.net/e9pp3g4yrwpb1fm1m5cbarreb4b4?ixlib=rails-4.3.1&auto=format%2Ccompress&fit=crop&q=65&ar=1%3A1"
-          alt="Rose Rouge Élégante"
-        />
+        <img [src]="product.imageUrl" [alt]="product.name" />
       </div>
-      <div class="product-info">
-        <h3>Rose Rouge Élégante</h3>
-        <p>Symbole d’amour et de passion, parfaite pour offrir à une personne spéciale ❤️</p>
-        <div class="product-footer">
-          <span class="price">25 DT</span>
-          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
-        </div>
-      </div>
-    </div>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img
-          src="https://media.s-bol.com/xxgzqZPvAMoP/kRrWAwK/550x595.jpg"
-          alt="Tulipes Printanières"
-        />
-      </div>
       <div class="product-info">
-        <h3>Tulipes Printanières</h3>
-        <p>Un bouquet lumineux pour égayer vos journées et vos espaces 🌷</p>
-        <div class="product-footer">
-          <span class="price">30 DT</span>
-          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
-        </div>
-      </div>
-    </div>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
 
-    <div class="product-card">
-      <div class="product-image">
-        <img
-          src="https://thumbs.dreamstime.com/b/des-tournesols-dor%C3%A9s-au-coucher-du-soleil-r%C3%A9fl%C3%A9chissent-sur-un-littoral-oc%C3%A9anique-serein-390506847.jpg"
-          alt="Tournesols Dorés"
-        />
-      </div>
-      <div class="product-info">
-        <h3>Tournesols Dorés</h3>
-        <p>Apportez chaleur et bonheur dans votre maison avec nos tournesols ☀️</p>
         <div class="product-footer">
-          <span class="price">22 DT</span>
-          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-image">
-        <img
-          src="https://www.promessedefleurs.com/media/catalog/category/Lilas_parfum_s.jpg"
-          alt="Lilas Parfumé"
-        />
-      </div>
-      <div class="product-info">
-        <h3>Lilas Parfumé</h3>
-        <p>Un parfum envoûtant et une couleur douce pour vos plus beaux moments 💜</p>
-        <div class="product-footer">
-          <span class="price">28 DT</span>
-          <button (click)="addToCart(products[1])" class="add-to-cart"><i class="fas fa-plus"></i> Ajouter</button>
+          <span class="price">{{ product.price }} DT</span>
+          <button (click)="addToCart(product)" class="add-to-cart">
+            <i class="fas fa-plus"></i> Ajouter
+          </button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Bouton pour voir tous les produits -->
+  <div class="all-products-btn">
+    <button routerLink="/products" class="btn btn-secondary">
+      Voir tous les produits
+    </button>
+  </div>
 </section>
+
 
 <!-- 📞 SECTION CONTACT -->
 <section class="contact" id="contact">

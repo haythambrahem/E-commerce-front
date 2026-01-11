@@ -6,29 +6,49 @@ import { ToastrService } from 'ngx-toastr';
 import { OrderItem } from '../../../core/interface/order-item';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // ✅ importer Router
+import { Router, ActivatedRoute } from '@angular/router'; // ✅ ajouté ActivatedRoute
+import { AuthService } from '../../../core/services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.css']
 })
 export class ProductList implements OnInit {
+  menuOpen = false;
+  cartOpen = false;
+  showDropdown = false;
+  activeSection = 'home';
+  cartCount = 0;
+
   products: Product[] = [];
   quantity: { [key: number]: number } = {};
   backendUrl = 'http://localhost:8082';
 
   constructor(
     private productService: ProductService,
+    public authService: AuthService,
     private cartService: CartService,
     private toastr: ToastrService,
-    private router: Router 
+    private router: Router,
+    private route: ActivatedRoute // ✅ injecté pour récupérer queryParams
   ) {}
 
   ngOnInit(): void {
     this.loadProducts();
+
+    // ✅ Si on arrive sur /home avec queryParams pour scroller
+    this.route.queryParams.subscribe(params => {
+      if (params['section'] && this.router.url === '/home') {
+        const element = document.getElementById(params['section']);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
   }
 
   loadProducts(): void {
@@ -36,7 +56,7 @@ export class ProductList implements OnInit {
       next: data => {
         this.products = data.map(p => ({
           ...p,
-          imageUrl: this.backendUrl + p.imageUrl
+          imageUrl: p.imageUrl ? this.backendUrl + p.imageUrl : ''
         }));
       },
       error: err => console.error(err)
@@ -59,5 +79,30 @@ export class ProductList implements OnInit {
 
     // 🔹 Redirection automatique vers le panier
     this.router.navigate(['/cart']);
+  }
+
+  /**
+   * ✅ Version intelligente de scroll/redirection
+   */
+  goToSection(sectionId: string): void {
+    // Si on est déjà sur /home
+    if (this.router.url === '/home') {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Sinon, redirige vers /home avec queryParams pour scroller
+      this.router.navigate(['/home'], { queryParams: { section: sectionId } });
+    }
+    this.menuOpen = false;
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  toggleCart(): void {
+    this.cartOpen = !this.cartOpen;
   }
 }

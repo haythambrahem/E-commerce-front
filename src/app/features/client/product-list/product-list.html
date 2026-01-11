@@ -1,3 +1,51 @@
+<header>
+  <a routerLink="/home" class="logo">FlowerByMANEL<span>.</span></a>
+
+<nav class="navbar" [class.active]="menuOpen">
+  <a (click)="goToSection('home')">Accueil</a>
+  <a (click)="goToSection('about')">À propos</a>
+  <a routerLink="/products">Produits</a>
+  <a (click)="goToSection('contact')">Contact</a>  
+</nav>
+
+
+  <div class="icons">
+    <a routerLink="/wishlist"><i class="fas fa-heart"></i></a>
+
+    <!-- 🛒 Panier -->
+    <a routerLink="/cart">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count">{{ cartCount }}</span>
+    </a>
+
+    <!-- 👤 Utilisateur -->
+    <ng-container *ngIf="authService.currentUser$ | async as user; else loginLink">
+      <div class="user-dropdown">
+  <div class="user-info" (click)="showDropdown = !showDropdown">
+    <i class="fas fa-user-circle"></i>
+    <span>{{ user.userName }}</span>
+    <i class="fas fa-chevron-down dropdown-icon" [class.open]="showDropdown"></i>
+  </div>
+
+  <ul class="dropdown-menu" *ngIf="showDropdown">
+    <li (click)="authService.logout()">Déconnexion</li>
+  </ul>
+</div>
+
+    </ng-container>
+
+    <ng-template #loginLink>
+      <a routerLink="/login"><i class="fas fa-user"></i></a>
+    </ng-template>
+  </div>
+
+  <div class="menu-toggle" (click)="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
 <section class="products-preview products-page">
   <div class="section-header">
     <h2>🌼 Notre Boutique</h2>

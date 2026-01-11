@@ -3,8 +3,11 @@ import { ProductService } from '../../core/services/product.service';
 import { CartService } from '../../core/services/cart.service';
 import { Product } from '../../core/interface/product';
 import { OrderItem } from '../../core/interface/order-item';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule],
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']

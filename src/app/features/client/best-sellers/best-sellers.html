@@ -1,3 +1,25 @@
 <section class="best-sellers">
-  <h2>Nos Best Sellers 🌸</h2>
-  <p>Découvrez les produits les plus populaires de FlowerByMANEL !</p>
+  <h2>🔥 Best Sellers</h2>
+
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of bestSellers">
+
+      <img
+        [src]="product.imageUrl"
+        [alt]="product.name"
+        class="product-img"
+      />
+
+      <h3>{{ product.name }}</h3>
+      <p class="desc">{{ product.description }}</p>
+
+      <div class="price">
+        {{ product.price }} DT
+      </div>
+
+      <button class="btn" (click)="addToCart(product)">
+        Ajouter au panier
+      </button>
+    </div>
+  </div>
+</section>
