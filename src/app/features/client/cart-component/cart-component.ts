@@ -34,24 +34,44 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  finalizeOrder() {
-    if (this.cartItems.length === 0) return;
+  // finalizeOrder() {
+  //   if (this.cartItems.length === 0) return;
 
-    const order: Order = {
-      total: this.total,
-      status: 'EN_ATTENTE',
-      orderitemList: this.cartItems
-    };
+  //   const order: Order = {
+  //     total: this.total,
+  //     status: 'EN_ATTENTE',
+  //     orderitemList: this.cartItems
+  //   };
 
-    this.orderService.createOrder(order).subscribe({
-      next: () => {
-        this.cartService.clearCart();
-        alert('Commande envoyée avec succès 🌸');
-        this.router.navigate(['/home']);
-      },
-      error: err => console.error('Erreur création commande', err)
-    });
-  }
+  //   this.orderService.createOrder(order).subscribe({
+  //     next: () => {
+  //       this.cartService.clearCart();
+  //       alert('Commande envoyée avec succès 🌸');
+  //       this.router.navigate(['/home']);
+  //     },
+  //     error: err => console.error('Erreur création commande', err)
+  //   });
+  // }
+finalizeOrder() {
+  if (this.cartItems.length === 0) return;
+
+  const userId = 1; // ID de l'utilisateur connecté (à récupérer dynamiquement plus tard)
+  const order: Order = {
+    total: this.total,
+    status: 'EN_ATTENTE',
+    orderitemList: this.cartItems,
+    user: { id: userId } // ✅ fonctionne avec Partial<User>
+  };
+
+  this.orderService.createOrder(order, userId).subscribe({
+    next: () => {
+      this.cartService.clearCart();
+      alert('Commande envoyée avec succès 🌸');
+      this.router.navigate(['/home']);
+    },
+    error: err => console.error('Erreur création commande', err)
+  });
+}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

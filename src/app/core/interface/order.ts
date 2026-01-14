@@ -6,5 +6,5 @@ export interface Order {
   total: number;
   status: string;
   orderitemList: OrderItem[];
-  user?: User;
+  user?: Partial<User>; // <-- change User en Partial<User>
 }

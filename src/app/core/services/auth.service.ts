@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../interface/user';
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,39 +12,48 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private router: Router) {
-    // On peut récupérer l'user du localStorage si connecté
+    // ✅ Restaurer l'utilisateur depuis localStorage
     const user = localStorage.getItem('user');
-    if (user) this.currentUserSubject.next(JSON.parse(user));
+    if (user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
   }
 
- login(user: User) {
-  if (!user) return;
+  // ✅ IMPORTANT : getter utilisé par CartService
+  get currentUserValue(): User | null {
+    return this.currentUserSubject.value;
+  }
 
-  // ✅ Sauvegarde dans le localStorage
-  localStorage.setItem('user', JSON.stringify(user));
-  this.currentUserSubject.next(user);
+  login(user: User) {
+    if (!user) return;
 
-  // ✅ Normaliser le rôle
-  const roleName = user?.role?.toUpperCase() || user?.roles?.[0]?.name?.toUpperCase() || '';
+    // ✅ Sauvegarde user
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
 
-  console.log("Rôle de l'utilisateur connecté :", roleName);
+    // ✅ Normalisation du rôle
+    const roleName =
+      user?.role?.toUpperCase() ||
+      user?.roles?.[0]?.name?.toUpperCase() ||
+      '';
 
-  // ✅ Navigation après un léger délai pour s’assurer que tout est bien enregistré
-  setTimeout(() => {
-    if (roleName === 'ADMIN') {
-      this.router.navigate(['/admin/dashboard']);
-    } else {
-      this.router.navigate(['/home']);
-    }
-  }, 100);
-}
+    console.log("Rôle de l'utilisateur connecté :", roleName);
 
+    // ✅ Navigation
+    setTimeout(() => {
+      if (roleName === 'ADMIN') {
+        this.router.navigate(['/admin/dashboard']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+    }, 100);
+  }
 
   logout() {
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
 
+    this.router.navigate(['/login']);
   }
 
   getCurrentUser(): User | null {
@@ -53,7 +63,7 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.currentUserSubject.value;
   }
-   // ✅ Méthode pratique pour récupérer le rôle
+
   getRole(): string | null {
     return this.currentUserSubject.value?.roles?.[0]?.name ?? null;
   }

@@ -9,9 +9,10 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
-  createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.api, order);
-  }
+ createOrder(order: Order, userId: number): Observable<Order> {
+  return this.http.post<Order>(`${this.api}?userId=${userId}`, order);
+}
+
 
   getAllOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.api);
