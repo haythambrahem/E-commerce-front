@@ -285,7 +285,7 @@ export class OrderFormComponent implements OnInit {
 
     this.orderService.create(request).subscribe({
       next: () => {
-        // Navigate to orders list - backend response is source of truth
+        // Order created successfully - navigate to orders list
         this.router.navigate(['/orders']);
       },
       error: (err) => {

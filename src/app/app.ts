@@ -9,4 +9,5 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class App {
   title = 'E-Commerce';
+  currentYear = new Date().getFullYear();
 }
